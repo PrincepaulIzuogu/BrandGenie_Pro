@@ -1,7 +1,7 @@
 ## 🖥️ For Web
 
 ```bash
-cd brandgenie-pro-web
+cd brandgenie-pro-web/frontend
 npm install
 npm run dev
 ```
@@ -11,7 +11,7 @@ Install **Expo Go** on your phone and connect it to the **same internet connecti
 Then run the following on your laptop and scan the QR code from the terminal:
 
 ```bash
-cd brandgenie-pro-mobile
+cd brandgenie-pro-mobile/frontend
 npm install
 npx expo start
 ```
