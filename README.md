@@ -13,7 +13,7 @@ python -m venv venv
 ```bash
 .\venv\Scripts\activate   # On Windows
 ```
-# Or:
+**Or:**
 ```bash
 source venv/bin/activate  # On macOS/Linux
 ```
