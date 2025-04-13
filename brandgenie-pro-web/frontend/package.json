@@ -11,14 +11,17 @@
         "axios": "^1.6.7",
         "bcrypt": "^5.1.1",
         "lucide-react": "^0.487.0",
+        "pg": "^8.14.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router-dom": "^6.30.0"
+        "react-router-dom": "^6.30.0",
+        "sequelize": "^6.37.7"
     },
     "devDependencies": {
         "@types/node": "^22.14.0",
         "@types/react": "^18.2.37",
         "@types/react-dom": "^18.2.15",
+        "@types/sequelize": "^4.28.20",
         "@vitejs/plugin-react": "^4.3.4",
         "autoprefixer": "^10.4.16",
         "framer-motion": "^12.6.3",
