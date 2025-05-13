@@ -13,13 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v3
-
-      - name: Install Docker Compose plugin
+      - name: Install Docker Compose plugin manually
         run: |
-          sudo apt-get update
-          sudo apt-get install docker-compose-plugin
+          mkdir -p ~/.docker/cli-plugins
+          curl -SL https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+          chmod +x ~/.docker/cli-plugins/docker-compose
+          docker compose version  # Check version
 
       - name: Build Docker containers
         run: docker compose -f docker-compose.yml build
