@@ -1,9 +1,9 @@
 {
   "name": "BrandGenie Pro Dev",
-  "dockerComposeFile": "../docker-compose.yml",
+  "dockerComposeFile": "docker-compose.yml",
   "service": "mobile-backend",
-  "workspaceFolder": "/workspace",
-  "forwardPorts": [8000, 8001, 5173, 5174],
+  "workspaceFolder": "/workspaces/BrandGenie_Pro",
+  "forwardPorts": [8000, 8001, 5173, 5174, 5433, 5434],
   "postCreateCommand": "docker compose up -d --build",
   "customizations": {
     "vscode": {
