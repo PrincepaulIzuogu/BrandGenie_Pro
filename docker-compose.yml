@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  web-backend:
+    build: ./brandgenie-pro-web/backend
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./brandgenie-pro-web/backend:/app
+
+  mobile-backend:
+    build: ./brandgenie-pro-mobile/backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./brandgenie-pro-mobile/backend:/app
+
+  web-frontend:
+    build: ./brandgenie-pro-web/frontend
+    ports:
+      - "5173:3000"
+    volumes:
+      - ./brandgenie-pro-web/frontend:/app
+
+  mobile-frontend:
+    build: ./brandgenie-pro-mobile/frontend
+    ports:
+      - "5174:3000"
+    volumes:
+      - ./brandgenie-pro-mobile/frontend:/app
+
+  web-db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: webuser
+      POSTGRES_PASSWORD: webpass
+      POSTGRES_DB: webdb
+    volumes:
+      - ./brandgenie-pro-web/backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5433:5432"
+
+  mobile-db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: mobileuser
+      POSTGRES_PASSWORD: mobilepass
+      POSTGRES_DB: mobiledb
+    volumes:
+      - ./brandgenie-pro-mobile/backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5434:5432"
