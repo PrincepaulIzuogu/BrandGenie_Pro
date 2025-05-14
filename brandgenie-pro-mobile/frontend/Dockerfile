@@ -2,12 +2,10 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Preinstall dependencies including ngrok
 COPY package.json ./
-RUN npm install --legacy-peer-deps && npm install -g @expo/ngrok
-
+RUN npm install --legacy-peer-deps
 COPY . .
 
-EXPOSE 5174
+EXPOSE 19000 19001 19002 5174 8081
 
-CMD ["npx", "expo", "start", "--tunnel", "--non-interactive"]
+CMD ["npx", "expo", "start"]
