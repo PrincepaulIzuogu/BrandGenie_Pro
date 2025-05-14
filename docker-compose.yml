@@ -43,7 +43,7 @@ services:
     ports:
       - "5174:19002"  # Only expose the Expo DevTools UI
     working_dir: /app
-    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--devtools-port", "19002", "--host", "0.0.0.0"]
+    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--host", "0.0.0.0"]
     environment:
       - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
       - CI=1
