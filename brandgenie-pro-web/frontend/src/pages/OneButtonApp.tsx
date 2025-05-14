@@ -10,7 +10,7 @@ const OneButtonApp: React.FC = () => {
   const handleSubmit = async () => {
     if (!name.trim()) return alert('Please enter your name');
     try {
-      await axios.post('/submit-name', { name }); 
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/submit-name`, { name }); 
       setMessage(res.data.message);
     } catch (err) {
       setMessage('Something went wrong. Try again.');
