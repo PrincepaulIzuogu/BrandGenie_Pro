@@ -7,6 +7,10 @@ services:
       - "8001:8001"
     volumes:
       - ./brandgenie-pro-web/backend:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:THD111@web-db:5432/onebuttonapp
+    depends_on:
+      - web-db
 
   mobile-backend:
     build: ./brandgenie-pro-mobile/backend
@@ -14,30 +18,32 @@ services:
       - "8000:8000"
     volumes:
       - ./brandgenie-pro-mobile/backend:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:THD111@mobile-db:5432/onebuttonapp
+    depends_on:
+      - mobile-db
 
   web-frontend:
     build: ./brandgenie-pro-web/frontend
     ports:
       - "5173:3000"
-    # Volume removed to avoid overwriting /app and causing missing package.json
-    # volumes:
-    #   - ./brandgenie-pro-web/frontend:/app
+    volumes:
+      - ./brandgenie-pro-web/frontend:/app
 
   mobile-frontend:
     build: ./brandgenie-pro-mobile/frontend
     ports:
       - "5174:3000"
-    # Volume removed to avoid overwriting /app and causing missing package.json
-    # volumes:
-    #   - ./brandgenie-pro-mobile/frontend:/app
+    volumes:
+      - ./brandgenie-pro-mobile/frontend:/app
 
   web-db:
     image: postgres:14
     restart: always
     environment:
-      POSTGRES_USER: webuser
-      POSTGRES_PASSWORD: webpass
-      POSTGRES_DB: webdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: THD111
+      POSTGRES_DB: onebuttonapp
     volumes:
       - ./brandgenie-pro-web/backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
@@ -47,9 +53,9 @@ services:
     image: postgres:14
     restart: always
     environment:
-      POSTGRES_USER: mobileuser
-      POSTGRES_PASSWORD: mobilepass
-      POSTGRES_DB: mobiledb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: THD111
+      POSTGRES_DB: onebuttonapp
     volumes:
       - ./brandgenie-pro-mobile/backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
