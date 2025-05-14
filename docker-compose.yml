@@ -35,15 +35,16 @@ services:
       - web-backend
 
   mobile-frontend:
-    build: ./brandgenie-pro-mobile/frontend
-    ports:
-      - "5174:5174"
-    working_dir: /app
-    command: ["npx", "expo", "start", "--tunnel", "--non-interactive"]
-    # volumes:
-    #   - ./brandgenie-pro-mobile/frontend:/app
-    depends_on:
-      - mobile-backend
+  build: ./brandgenie-pro-mobile/frontend
+  ports:
+    - "5174:5174"
+  working_dir: /app
+  command: ["npx", "expo", "start", "--tunnel"]
+  environment:
+    - CI=1
+  depends_on:
+    - mobile-backend
+
 
   web-db:
     image: postgres:14
