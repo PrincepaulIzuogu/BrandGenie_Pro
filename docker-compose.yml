@@ -26,16 +26,24 @@ services:
   web-frontend:
     build: ./brandgenie-pro-web/frontend
     ports:
-      - "5173:3000"
+      - "5173:5173"  # match vite port with exposed port
+    working_dir: /app
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
     volumes:
       - ./brandgenie-pro-web/frontend:/app
+    depends_on:
+      - web-backend
 
   mobile-frontend:
     build: ./brandgenie-pro-mobile/frontend
     ports:
-      - "5174:3000"
+      - "5174:5174"  # make sure it aligns with what Expo or your scripts expose
+    working_dir: /app
+    command: ["npx", "expo", "start", "--tunnel"]
     volumes:
       - ./brandgenie-pro-mobile/frontend:/app
+    depends_on:
+      - mobile-backend
 
   web-db:
     image: postgres:14
