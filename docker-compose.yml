@@ -39,7 +39,7 @@ services:
     ports:
       - "5174:5174"
     working_dir: /app
-    command: ["npx", "expo", "start", "--tunnel"]
+    command: ["npx", "expo", "start", "--tunnel", "--non-interactive"]
     # volumes:
     #   - ./brandgenie-pro-mobile/frontend:/app
     depends_on:
