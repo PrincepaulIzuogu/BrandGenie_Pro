@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   web-backend:
-    build: ./brandgenie-pro-web/backend
+    build:
+      context: ./brandgenie-pro-web/backend
     ports:
       - "8001:8001"
     volumes:
@@ -13,7 +14,8 @@ services:
       - web-db
 
   mobile-backend:
-    build: ./brandgenie-pro-mobile/backend
+    build:
+      context: ./brandgenie-pro-mobile/backend
     ports:
       - "8000:8000"
     volumes:
@@ -24,7 +26,8 @@ services:
       - mobile-db
 
   web-frontend:
-    build: ./brandgenie-pro-web/frontend
+    build:
+      context: ./brandgenie-pro-web/frontend
     ports:
       - "5173:5173"
     working_dir: /app
@@ -35,16 +38,17 @@ services:
       - web-backend
 
   mobile-frontend:
-  build: ./brandgenie-pro-mobile/frontend
-  ports:
-    - "5174:19002"  # Only expose the Expo DevTools UI on port 5174
-  working_dir: /app
-  command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--devtools-port", "19002", "--host", "0.0.0.0"]
-  environment:
-    - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-    - CI=1  # Avoid interactive prompts in Docker
-  depends_on:
-    - mobile-backend
+    build:
+      context: ./brandgenie-pro-mobile/frontend
+    ports:
+      - "5174:19002"  # Only expose the Expo DevTools UI
+    working_dir: /app
+    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--devtools-port", "19002", "--host", "0.0.0.0"]
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - CI=1
+    depends_on:
+      - mobile-backend
 
   web-db:
     image: postgres:14
