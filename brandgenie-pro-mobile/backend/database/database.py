@@ -1,14 +1,15 @@
-import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
-DATABASE_URL = os.getenv(
+# Use environment variable if set; otherwise default to mobile-db (Docker Compose service name)
+SQLALCHEMY_DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://mobileuser:mobilepass@mobile-db:5432/mobiledb"
+    "postgresql://postgres:THD111@mobile-db:5432/onebuttonapp"
 )
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
