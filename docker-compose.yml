@@ -37,13 +37,12 @@ services:
   mobile-frontend:
   build: ./brandgenie-pro-mobile/frontend
   ports:
-    - "19002:19002"  # Expo DevTools with QR Code
+    - "5174:5174"
   working_dir: /app
-  command: ["npx", "expo", "start", "--tunnel"]
-  environment:
-    - CI=0
+  command: ["npx", "expo", "start", "--port", "5174", "--host", "0.0.0.0"]
   depends_on:
     - mobile-backend
+
 
 
   web-db:
