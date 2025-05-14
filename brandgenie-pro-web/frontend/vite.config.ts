@@ -11,9 +11,10 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    host: '0.0.0.0',
     proxy: {
       '/submit-name': {
-        target: 'http://mobile-backend:8000', // matches docker-compose service name
+        target: 'http://mobile-backend:8000',
         changeOrigin: true,
         rewrite: (path) => path,
       },
