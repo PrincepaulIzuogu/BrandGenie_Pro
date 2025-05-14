@@ -1,8 +1,20 @@
 // brandgenie-pro-mobile/frontend/pages/OneButtonApp.tsx
+
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
+
+const API_BASE_URL =
+  Platform.OS === 'android' ? 'http://10.0.2.2:8000' : 'http://localhost:8000';
 
 const OneButtonApp = () => {
   const [name, setName] = useState('');
@@ -11,7 +23,7 @@ const OneButtonApp = () => {
   const handleSubmit = async () => {
     if (!name.trim()) return alert('Please enter your name');
     try {
-      const res = await axios.post('http://localhost/submit-name', { name });
+      const res = await axios.post(`${API_BASE_URL}/submit-name`, { name });
       setMessage(res.data.message);
     } catch (err) {
       setMessage('Something went wrong. Try again.');
