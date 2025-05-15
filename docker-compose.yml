@@ -39,12 +39,12 @@ services:
     build:
       context: ./brandgenie-pro-mobile/frontend
     ports:
-      - "5174:19002"  # Exposes Expo DevTools (QR code and tunnel URL)
+      - "5174:19002"  # Only exposing DevTools UI on port 5174
     working_dir: /app
     environment:
       - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-      - CI=true
-    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--tunnel"]
+      # Remove CI=true for full interactivity (QR code + prompts if needed)
+    command: ["npx", "expo", "start", "--dev-client", "--port", "8082", "--tunnel"]
     depends_on:
       - mobile-backend
 
