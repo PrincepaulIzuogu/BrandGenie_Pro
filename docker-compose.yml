@@ -32,8 +32,6 @@ services:
       - "5173:5173"
     working_dir: /app
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
-    # volumes:
-    #   - ./brandgenie-pro-web/frontend:/app
     depends_on:
       - web-backend
 
@@ -41,12 +39,12 @@ services:
     build:
       context: ./brandgenie-pro-mobile/frontend
     ports:
-      - "5174:19002"  # Expo DevTools UI on this port
+      - "5174:19002"  # Expo DevTools UI (QR code visible here)
     working_dir: /app
-    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--host", "tunnel"]
     environment:
       - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-      - CI=1
+      - CI=true  # Avoid interactive prompts
+    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--tunnel"]
     depends_on:
       - mobile-backend
 
@@ -73,4 +71,3 @@ services:
       - ./brandgenie-pro-mobile/backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5434:5432"
-
