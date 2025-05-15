@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Install expo-cli and @expo/ngrok globally to prevent interactive install prompt
+# Install expo-cli and required tunnel support
 RUN npm install -g expo-cli @expo/ngrok@^4.1.0
 
 COPY package.json ./
