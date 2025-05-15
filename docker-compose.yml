@@ -41,9 +41,9 @@ services:
     build:
       context: ./brandgenie-pro-mobile/frontend
     ports:
-      - "5174:19002"  # Only expose the Expo DevTools UI
+      - "5174:19002"  # Expo DevTools UI on this port
     working_dir: /app
-    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--host", "0.0.0.0"]
+    command: ["npx", "expo", "start", "--dev-client", "--port", "19000", "--host", "tunnel"]
     environment:
       - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
       - CI=1
@@ -73,3 +73,4 @@ services:
       - ./brandgenie-pro-mobile/backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5434:5432"
+
