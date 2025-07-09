@@ -32,8 +32,8 @@ const ResetPassword: React.FC = () => {
 
       const endpoint =
         accountType === 'company'
-          ? 'http://localhost:5000/api/reset-password/company'
-          : 'http://localhost:5000/api/reset-password/user';
+          ? 'https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/reset-password/company'
+          : 'https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/reset-password/user';
 
       const response = await axios.post(endpoint, { email, code, new_password: newPassword });
 
