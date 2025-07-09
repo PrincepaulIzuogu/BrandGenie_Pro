@@ -3,12 +3,11 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 import httpx
 import os
-from dotenv import load_dotenv
+
 from app.database import SessionLocal, CopilotRequest, CopilotResponse
 router = APIRouter()
 
-# Load env variables
-load_dotenv()
+
 
 # API Configuration
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
