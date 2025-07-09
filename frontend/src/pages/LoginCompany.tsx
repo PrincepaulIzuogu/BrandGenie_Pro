@@ -22,7 +22,7 @@ const LoginCompany: React.FC = () => {
 
     setLoading(true);
     try {
-      const { data: loginData } = await axios.post('http://localhost:5000/api/login/company', {
+      const { data: loginData } = await axios.post('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/login/company', {
         email: form.email,
         password: form.password,
       });
@@ -31,7 +31,7 @@ const LoginCompany: React.FC = () => {
       localStorage.setItem('token', access_token);
 
       const { data: companyProfile } = await axios.get(
-        'http://localhost:5000/api/company/me',
+        'https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/company/me',
         { headers: { Authorization: `Bearer ${access_token}` } }
       );
 
