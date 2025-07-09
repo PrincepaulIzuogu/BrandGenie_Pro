@@ -46,11 +46,11 @@ const UploadPanel: React.FC<UploadPanelProps> = ({ onUploadComplete }) => {
       formData.append('uploaded_by_company_id', String(user.company_id));
 
       try {
-        const res = await axios.post('http://localhost:5000/api/media/upload', formData, {
+        const res = await axios.post('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/media/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
 
-        const fullUrl = `http://localhost:5000${res.data.file_url}`; // ✅ Full URL for preview/playback
+        const fullUrl = `https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net${res.data.file_url}`; // ✅ Full URL for preview/playback
 
         const uploadedClip: UploadedMedia = {
           name: file.name,
