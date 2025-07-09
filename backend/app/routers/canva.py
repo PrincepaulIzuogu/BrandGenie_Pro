@@ -7,13 +7,13 @@ import urllib.parse
 import httpx
 from datetime import datetime, timedelta
 import os
-from dotenv import load_dotenv
+
 
 from app.database import SessionLocal, CanvaIntegration
 
 router = APIRouter()
 
-load_dotenv()
+
 
 CANVA_CLIENT_ID = os.getenv("CANVA_CLIENT_ID")
 CANVA_CLIENT_SECRET = os.getenv("CANVA_CLIENT_SECRET")
