@@ -1,4 +1,4 @@
-# Backend Dockerfile 
+# Backend Dockerfile
 FROM python:3.11-slim
 
 # Install PostgreSQL-related system dependencies
@@ -14,8 +14,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the backend code
 COPY . .
 
-ENV PORT=80
 
-EXPOSE $PORT
 
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
+# Expose backend port
+EXPOSE 5000
+
+# Run FastAPI server on port 5000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
