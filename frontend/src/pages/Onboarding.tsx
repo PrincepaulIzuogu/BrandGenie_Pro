@@ -15,7 +15,7 @@ const Onboarding: React.FC = () => {
     if (!website.trim()) return;
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/analyze', { website });
+      const response = await axios.post('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/analyze', { website });
 
       for (let i = 0; i < messages.length; i++) {
         setCurrentMessage(messages[i]);
