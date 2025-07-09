@@ -32,7 +32,7 @@ const ViewUsersPage: React.FC = () => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/users/${userId}`);
+      await axios.delete(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/users/${userId}`);
       setUsers((prev) => prev.filter((u) => u.id !== userId));
     } catch (error) {
       console.error('Failed to delete user:', error);
@@ -45,7 +45,7 @@ const ViewUsersPage: React.FC = () => {
 
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/by-company/${user.company_id}`);
+        const response = await axios.get(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/users/by-company/${user.company_id}`);
         setUsers(response.data);
       } catch (error) {
         console.error('Failed to fetch users:', error);
