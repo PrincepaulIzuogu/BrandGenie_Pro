@@ -33,7 +33,7 @@ const CoPilot: React.FC = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/copilot/chat', {
+      const res = await axios.post('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/copilot/chat', {
         prompt: input
       });
 
