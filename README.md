@@ -3,10 +3,8 @@
 ## Mission 
 To empower marketing teams, freelancers, and creative professionals with a unified mobile workspace that simplifies campaign planning, execution, collaboration, and content creation — all from the palm of your hand.
 
-<p align="center">
-  <img src="![image](https://github.com/user-attachments/assets/a649e8a8-0fbc-4e24-a7da-0618847e27e2)
-" alt="BrandGenie Preview" />
-</p>
+![image](https://github.com/user-attachments/assets/4d07b497-eff6-43ec-bcac-f55c8eaec12b)
+
 
 ## Vision
 
