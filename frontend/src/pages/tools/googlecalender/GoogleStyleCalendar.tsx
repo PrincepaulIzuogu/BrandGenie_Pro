@@ -79,7 +79,7 @@ const CalendarPage = () => {
   const fetchEvents = async () => {
     if (!user?.company_id) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/calendar/events?company_id=${user.company_id}`);
+      const res = await fetch(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/calendar/events?company_id=${user.company_id}`);
       const data = await res.json();
       const formatted = data.map((event: any) => ({
         id: event.id,
@@ -96,7 +96,7 @@ const CalendarPage = () => {
 
   const deleteEvent = async (eventId: number) => {
     try {
-      await fetch(`http://localhost:5000/api/calendar/events/${eventId}`, { method: 'DELETE' });
+      await fetch(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/calendar/events/${eventId}`, { method: 'DELETE' });
       setEvents(prev => prev.filter(ev => ev.id !== eventId));
     } catch (err) {
       console.error('Failed to delete event:', err);
@@ -110,7 +110,7 @@ const CalendarPage = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/calendar/events`, {
+      const res = await fetch(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/calendar/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
