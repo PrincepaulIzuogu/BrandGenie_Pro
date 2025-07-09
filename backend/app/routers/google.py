@@ -6,13 +6,13 @@ from starlette.responses import RedirectResponse
 from datetime import datetime, timedelta
 import httpx
 import os
-from dotenv import load_dotenv
+
 
 from app.database import SessionLocal, GoogleCalendarIntegration
 
 router = APIRouter()
 
-load_dotenv()
+
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
