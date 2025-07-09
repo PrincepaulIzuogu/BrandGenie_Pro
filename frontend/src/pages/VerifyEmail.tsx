@@ -32,7 +32,7 @@ const VerifyEmail: React.FC = () => {
 
     setLoading(true);
     try {
-      await axios.get('http://localhost:5000/api/verify-email', {
+      await axios.get('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/verify-email', {
         params: { email, code },
       });
 
@@ -62,7 +62,7 @@ const VerifyEmail: React.FC = () => {
     if (!email) return;
     try {
       setResending(true);
-      await axios.post(`http://localhost:5000/api/send-verification-code?email=${email}`);
+      await axios.post(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/send-verification-code?email=${email}`);
       toast.success('📧 Verification code resent!', {
         position: 'top-center',
         autoClose: 3000,
