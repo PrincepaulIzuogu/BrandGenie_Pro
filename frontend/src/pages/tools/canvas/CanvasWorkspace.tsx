@@ -3,7 +3,7 @@ import { AlertTriangle } from 'lucide-react'; // disclaimer icon
 
 const CanvasWorkspace: React.FC = () => {
   const handleConnectCanva = () => {
-    window.location.href = "http://localhost:5000/oauth/canva/start?company_id=1";
+    window.location.href = "https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/oauth/canva/start?company_id=1";
   };
 
   return (
