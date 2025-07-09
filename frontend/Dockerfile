@@ -1,5 +1,6 @@
-# Frontend Dockerfile
-FROM node:16-slim
+# Frontend Dockerfile (inside ./frontend)
+
+FROM node:18-slim
 
 # Set working directory
 WORKDIR /app
@@ -8,13 +9,13 @@ WORKDIR /app
 RUN npm cache clean --force
 
 # Install dependencies
-COPY ./frontend/package*.json ./
+COPY package*.json ./
 
-# Install dependencies
-RUN npm install --verbose
+RUN npm install --legacy-peer-deps --verbose
+
 
 # Copy the rest of the frontend code into the container
-COPY ./frontend .
+COPY . .
 
 # Build the app
 RUN npm run build
