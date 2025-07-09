@@ -16,7 +16,7 @@ interface Column {
   taskIds: number[];
 }
 
-const API_URL = 'http://localhost:5000/api/trello';
+const API_URL = 'https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/trello';
 
 
 const KanbanBoard: React.FC = () => {
