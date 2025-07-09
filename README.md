@@ -1,6 +1,6 @@
 # BrandGenie Pro
 
-## Mission
+## Mission 
 To empower marketing teams, freelancers, and creative professionals with a unified mobile workspace that simplifies campaign planning, execution, collaboration, and content creation — all from the palm of your hand.
 
 <p align="center">
