@@ -6,7 +6,6 @@ from email.mime.text import MIMEText
 from typing import List
 
 import pytz
-from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,7 +24,7 @@ from app.database import (
     GroupMember,
 )
 
-load_dotenv()
+
 router = APIRouter(prefix="/api/adduser", tags=["Add User"])
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
