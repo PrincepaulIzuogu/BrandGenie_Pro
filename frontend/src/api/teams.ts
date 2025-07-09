@@ -1,7 +1,7 @@
 // src/api/teams.ts
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000'; // Change for production
+const API_BASE_URL = 'https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net'; // Change for production
 
 // ---------------------------
 // Interfaces
