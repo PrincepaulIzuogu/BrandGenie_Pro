@@ -18,7 +18,7 @@ const CanvasOAuthCallback: React.FC = () => {
       }
 
       try {
-        await axios.get(`http://localhost:5000/api/canva/oauth/callback?code=${code}&state=${state}&company_id=${companyId}`);
+        await axios.get(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/canva/oauth/callback?code=${code}&state=${state}&company_id=${companyId}`);
         alert('✅ Canva connected successfully');
         navigate('/tools/canvas');
       } catch (err) {
