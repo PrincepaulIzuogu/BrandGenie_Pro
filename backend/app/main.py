@@ -23,6 +23,11 @@ async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
+@app.get("/")
+def health_check():
+    return {"status": "Backend is running"}
+
+
 # Include all routers
 app.include_router(auth.router, prefix="/api")
 app.include_router(company.router, prefix="/api")
