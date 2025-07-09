@@ -14,10 +14,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the backend code
 COPY . .
 
+# Use environment PORT if available (Azure provides it)
+ENV PORT=8000
 
+# Expose for documentation (not mandatory)
+EXPOSE $PORT
 
-# Expose backend port
-EXPOSE 5000
-
-# Run FastAPI server on port 5000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
+# Run FastAPI using the dynamic port
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
