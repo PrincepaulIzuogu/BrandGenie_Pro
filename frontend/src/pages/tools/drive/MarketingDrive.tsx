@@ -84,7 +84,7 @@ const MarketingDrive: React.FC = () => {
     });
 
     try {
-      const res = await fetch('http://localhost:5000/api/drive/upload', {
+      const res = await fetch('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/drive/upload', {
         method: 'POST',
         body: formData,
       });
