@@ -107,7 +107,7 @@ const AddUser: React.FC = () => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/adduser', payload);
+      await axios.post('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/adduser', payload);
       toast.success('✅ User added and email sent!');
       navigate('/view-users');
     } catch (error: any) {
