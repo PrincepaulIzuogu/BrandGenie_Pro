@@ -1,23 +1,18 @@
 # Backend Dockerfile
 FROM python:3.11-slim
 
-# Install PostgreSQL-related system dependencies
 RUN apt-get update && apt-get install -y gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the backend code
 COPY . .
 
+# Set correct runtime port for Azure
+ENV PORT=80
+EXPOSE 80
 
-
-# Expose backend port
-EXPOSE 5000
-
-# Run FastAPI server on port 5000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
+# Start the FastAPI app on port 80
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
