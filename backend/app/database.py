@@ -5,17 +5,14 @@ from sqlalchemy.future import select
 from pydantic import BaseModel, EmailStr
 from typing import Optional, List, Literal
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
 import os
 
-# Load .env from root directory
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 # DATABASE CONFIG
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
-    raise ValueError("DATABASE_URL not set in .env")
+    raise ValueError("DATABASE_URL not set in environment")
 
 Base = declarative_base()
 engine = create_async_engine(DATABASE_URL, echo=True)
