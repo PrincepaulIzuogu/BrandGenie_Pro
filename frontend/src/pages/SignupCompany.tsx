@@ -42,8 +42,8 @@ const SignupCompany: React.FC = () => {
         role: form.role,
       };
 
-      await axios.post('http://localhost:5000/api/register/company', payload);
-      await axios.post(`http://localhost:5000/api/send-verification-code?email=${form.email}`);
+      await axios.post('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/register/company', payload);
+      await axios.post(`https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/send-verification-code?email=${form.email}`);
 
       localStorage.setItem('verifyEmail', form.email);
 
