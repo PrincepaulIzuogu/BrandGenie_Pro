@@ -10,8 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 8000
+# Don't hardcode PORT!
+EXPOSE 8080
 
-# Use the port provided by Azure (default 8080 or 8081)
-ENV PORT=8000
+# Let Azure inject the correct PORT value at runtime
 CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
