@@ -11,19 +11,19 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code and start script
+# Copy app and start script
 COPY . .
 COPY start.sh .
 RUN chmod +x start.sh
 
-# Ensure static folder exists
+# ✅ Create the static folder FastAPI expects
 RUN mkdir -p uploaded_media
 
 # Expose FastAPI port
 EXPOSE 5000
 
-# Unbuffered logs for real-time output in Azure
+# Unbuffered logs
 ENV PYTHONUNBUFFERED=1
 
-# Run app using shell script
+# Start with shell script
 CMD ["./start.sh"]
