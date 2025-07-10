@@ -1,17 +1,24 @@
 # Backend Dockerfile
 FROM python:3.11-slim
 
+# Install system dependencies
 RUN apt-get update && apt-get install -y gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 
+# Set working directory
 WORKDIR /app
 
+# Copy dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy entire app folder
 COPY . .
 
-# Don't hardcode PORT!
-EXPOSE 8080
+# Expose FastAPI port
+EXPOSE 5000
 
-# Let Azure inject the correct PORT value at runtime
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
+# Unbuffered logs
+ENV PYTHONUNBUFFERED=1
+
+# Run FastAPI app from inside app/ folder
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000"]
