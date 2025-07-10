@@ -10,9 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Set correct runtime port for Azure
-ENV PORT=80
-EXPOSE 80
+EXPOSE 8000
 
-# Start the FastAPI app on port 80
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+# Use the port provided by Azure (default 8080 or 8081)
+ENV PORT=8000
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
