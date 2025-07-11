@@ -22,9 +22,4 @@ RUN npm run build
 
 # Serve with a static file server
 RUN npm install -g serve
-
-# Expose port (optional for documentation, Azure ignores it)
-EXPOSE 3000
-
-# 🔥 Use environment variable PORT (required by Azure)
-CMD ["serve", "-s", "dist", "-l", "${PORT}"]
+CMD ["serve", "-s", "dist", "-l", "3000"]
