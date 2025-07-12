@@ -34,9 +34,11 @@ jobs:
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           cache-to: type=gha,mode=max
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
 
   deploy:
-    name: deploy Frontend Image
+    name: Deploy Frontend Image
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -70,3 +72,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
