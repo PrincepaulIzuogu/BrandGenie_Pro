@@ -33,7 +33,7 @@ jobs:
           context: ./backend
           push: false
           tags: ${{ steps.meta.outputs.tags }}
-          cache-to: type=gha,mode=max
+          no-cache: true
 
   deploy:
     name: deploy Backend Image
