@@ -1,40 +1,45 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+from fastapi.middleware.proxy_headers import ProxyHeadersMiddleware 
 from fastapi.staticfiles import StaticFiles
+
 from app.database import Base, engine
-from app.routers import auth, company, team, messages, copilot, canva, google, calendar, media, trello, drive, projects, users, groups, tools, adduser
+from app.routers import (
+    auth, company, team, messages, copilot, canva, google, calendar,
+    media, trello, drive, projects, users, groups, tools, adduser
+)
 
-# ✅ NEW: Import middleware to trust proxy headers
-from starlette.middleware import Middleware
-from starlette.middleware.proxy_headers import ProxyHeadersMiddleware
+app = FastAPI(title="BrandGenie Pro Backend")
 
-# ✅ Create app with proxy-aware middleware
-middleware = [
-    Middleware(ProxyHeadersMiddleware),
-    Middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-]
-
-app = FastAPI(title="BrandGenie Pro Backend", middleware=middleware)
+# Middleware
+app.add_middleware(ProxyHeadersMiddleware)
+app.add_middleware(HTTPSRedirectMiddleware)
+app.add_middleware(GZipMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # You can restrict this in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Serve uploaded files
 app.mount("/media", StaticFiles(directory="uploaded_media"), name="media")
 
+# Create tables on startup
 @app.on_event("startup")
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
+# Health check
 @app.get("/")
 def health_check():
     return {"status": "Backend is running"}
 
-# Include all routers
+# Include routers
 app.include_router(auth.router, prefix="/api")
 app.include_router(company.router, prefix="/api")
 app.include_router(team.router, prefix="/api")
