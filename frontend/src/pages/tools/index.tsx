@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ToolCard from '../../components/ToolCard';
 import { MdAdd } from 'react-icons/md';
-import * as toolApi from '../../api/tools';
+import axios from 'axios';
 
 // images
 import notionLogo from '../../images/notion.png';
@@ -19,6 +18,8 @@ const ToolsPage: React.FC = () => {
   const navigate = useNavigate();
   const [tools, setTools] = useState<any[]>([]);
   const draftCount = localStorage.getItem('notion_current_draft') ? 1 : 0;
+
+  const BACKEND_URL = 'https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api';
 
   const predefinedTools = [
     {
@@ -77,23 +78,21 @@ const ToolsPage: React.FC = () => {
 
   const syncAndFetchTools = async () => {
     try {
-      const res = await toolApi.getTools();
+      const res = await axios.get(`${BACKEND_URL}/tools`);
       const existingTitles = res.data.map((t: any) => t.title);
 
-      // Send missing ones to backend
       const newOnes = predefinedTools.filter(
         (t) => !existingTitles.includes(t.title)
       );
 
       for (const tool of newOnes) {
-        await toolApi.addTool({
+        await axios.post(`${BACKEND_URL}/tools`, {
           ...tool,
-          logo_url: tool.logo_url, // You may convert to CDN later
+          logo_url: tool.logo_url,
         });
       }
 
-      // Fetch all tools after sync
-      const finalTools = await toolApi.getTools();
+      const finalTools = await axios.get(`${BACKEND_URL}/tools`);
       setTools(finalTools.data);
     } catch (err) {
       console.error('Error syncing tools:', err);
