@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.database import Base, engine
-from app.routers import auth, company, team, messages, copilot, canva, calendar, media, trello, drive, projects, users, groups, tools, adduser
+from app.routers import auth, company, team, messages, copilot, canva, google, calendar, media, trello, drive, projects, users, groups, tools, adduser
 
 app = FastAPI(title="BrandGenie Pro Backend")
 
@@ -37,6 +37,7 @@ app.include_router(copilot.router, prefix="/api")
 app.include_router(canva.router)
 app.include_router(calendar.router, prefix="/api")
 app.include_router(media.router)
+app.include_router(media.google)
 app.include_router(trello.router, prefix="/api")
 app.include_router(drive.router)
 app.include_router(projects.router)
