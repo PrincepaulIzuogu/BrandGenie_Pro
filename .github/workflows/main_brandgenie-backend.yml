@@ -1,4 +1,4 @@
-name: Build and Push Backend Docker Image to Docker Hub
+name: Build and Deploy Backend Docker Image
 
 on:
   push:
@@ -7,8 +7,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push:
+  build:
+    name: Build Backend Docker Image
     runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
 
     steps:
       - name: Checkout code
@@ -17,15 +20,47 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: princepaul/brandgenie-backend
+
+      - name: Build image (no push)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+
+  deploy:
+    name: Push Image to Docker Hub as Production
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Backend Docker Image
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: princepaul/brandgenie-backend
+
+      - name: Push already built image
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
-          tags: princepaul/brandgenie-backend:latest
+          tags: ${{ steps.meta.outputs.tags }}
+
