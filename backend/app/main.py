@@ -1,19 +1,26 @@
-# main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.database import Base, engine
 from app.routers import auth, company, team, messages, copilot, canva, google, calendar, media, trello, drive, projects, users, groups, tools, adduser
 
-app = FastAPI(title="BrandGenie Pro Backend")
+# ✅ NEW: Import middleware to trust proxy headers
+from starlette.middleware import Middleware
+from starlette.middleware.proxy_headers import ProxyHeadersMiddleware
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# ✅ Create app with proxy-aware middleware
+middleware = [
+    Middleware(ProxyHeadersMiddleware),
+    Middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+]
+
+app = FastAPI(title="BrandGenie Pro Backend", middleware=middleware)
 
 # Serve uploaded files
 app.mount("/media", StaticFiles(directory="uploaded_media"), name="media")
@@ -26,7 +33,6 @@ async def startup():
 @app.get("/")
 def health_check():
     return {"status": "Backend is running"}
-
 
 # Include all routers
 app.include_router(auth.router, prefix="/api")
@@ -45,3 +51,4 @@ app.include_router(users.router)
 app.include_router(groups.router)
 app.include_router(tools.router)
 app.include_router(adduser.router)
+
