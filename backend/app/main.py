@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
-from fastapi.middleware.proxy_headers import ProxyHeadersMiddleware 
 from fastapi.staticfiles import StaticFiles
 
 from app.database import Base, engine
@@ -14,12 +13,11 @@ from app.routers import (
 app = FastAPI(title="BrandGenie Pro Backend")
 
 # Middleware
-app.add_middleware(ProxyHeadersMiddleware)
 app.add_middleware(HTTPSRedirectMiddleware)
 app.add_middleware(GZipMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can restrict this in production
+    allow_origins=["*"],  # Consider restricting this in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,4 +54,3 @@ app.include_router(users.router)
 app.include_router(groups.router)
 app.include_router(tools.router)
 app.include_router(adduser.router)
-
