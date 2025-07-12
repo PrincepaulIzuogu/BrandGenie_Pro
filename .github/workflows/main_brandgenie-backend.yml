@@ -26,17 +26,21 @@ jobs:
         with:
           images: princepaul/brandgenie-backend
 
-      - name: Build image (no push)
+      - name: Build and export to Docker cache (no push)
+        id: build
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: false
           tags: ${{ steps.meta.outputs.tags }}
+          cache-to: type=gha,mode=max
 
   deploy:
-    name: Push Image to Docker Hub as Production
+    name: Push Backend Image to Docker Hub
     runs-on: ubuntu-latest
     needs: build
+    environment:
+      name: production  # ✅ Deploys to the "production" environment tab in GitHub
 
     steps:
       - name: Checkout code
@@ -57,10 +61,10 @@ jobs:
         with:
           images: princepaul/brandgenie-backend
 
-      - name: Push already built image
+      - name: Load from Docker cache and push
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-
+          cache-from: type=gha
