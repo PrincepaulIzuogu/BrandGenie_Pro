@@ -60,6 +60,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: princepaul/brandgenie-frontend
+          tags: |
+            type=raw,value=latest
 
       - name: Load from Docker cache and push
         uses: docker/build-push-action@v5
