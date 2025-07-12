@@ -5,16 +5,12 @@ import makeAnimated from 'react-select/animated';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import {
-  getAllGroups,
-  getAllProjects,
-  getAllTools,
-  getAllFilesByCompanyId,
-} from '../api/userAssignments';
 import { useUser } from '../context/UserContext';
 
 type OptionType = { value: string; label: string };
 type Assignment = { items: OptionType[]; durationValue: string; durationType: string };
+
+const BACKEND_URL = 'https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api';
 
 const AddUser: React.FC = () => {
   const animatedComponents = makeAnimated();
@@ -45,14 +41,14 @@ const AddUser: React.FC = () => {
     const fetchData = async () => {
       try {
         const [groupRes, projectRes, toolRes] = await Promise.all([
-          getAllGroups(),
-          getAllProjects(),
-          getAllTools()
+          axios.get(`${BACKEND_URL}/groups`),
+          axios.get(`${BACKEND_URL}/projects`),
+          axios.get(`${BACKEND_URL}/tools`)
         ]);
 
         let fileRes = { data: [] };
         if (user?.company_id) {
-          fileRes = await getAllFilesByCompanyId(user.company_id);
+          fileRes = await axios.get(`${BACKEND_URL}/drive/files/${user.company_id}`);
         }
 
         setGroups(groupRes.data.map((g: any) => ({ value: g.id.toString(), label: g.name })));
@@ -107,7 +103,7 @@ const AddUser: React.FC = () => {
     };
 
     try {
-      await axios.post('https://brandgenie-backend-ene6c9htgcauegg3.westeurope-01.azurewebsites.net/api/adduser', payload);
+      await axios.post(`${BACKEND_URL}/adduser`, payload);
       toast.success('✅ User added and email sent!');
       navigate('/view-users');
     } catch (error: any) {
