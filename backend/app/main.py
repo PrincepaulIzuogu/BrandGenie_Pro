@@ -16,16 +16,16 @@ app = FastAPI(title="BrandGenie Pro Backend")
 app.add_middleware(GZipMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Consider restricting this in production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Manually enforce HTTPS if behind a proxy/load balancer (like Azure)
+# ✅ Fix 307 infinite loop: only redirect if X-Forwarded-Proto is http
 @app.middleware("http")
-async def redirect_http_to_https(request: Request, call_next):
-    if request.url.scheme == "http":
+async def enforce_https(request: Request, call_next):
+    if request.headers.get("x-forwarded-proto", "http") == "http":
         url = request.url.replace(scheme="https")
         return RedirectResponse(url=str(url))
     return await call_next(request)
@@ -33,18 +33,16 @@ async def redirect_http_to_https(request: Request, call_next):
 # Serve uploaded files
 app.mount("/media", StaticFiles(directory="uploaded_media"), name="media")
 
-# Create tables on startup
 @app.on_event("startup")
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-# Health check
 @app.get("/")
 def health_check():
     return {"status": "Backend is running"}
 
-# Include routers
+# Routers
 app.include_router(auth.router, prefix="/api")
 app.include_router(company.router, prefix="/api")
 app.include_router(team.router, prefix="/api")
