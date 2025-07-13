@@ -6,4 +6,4 @@ export const addTool = (tool: {
   description: string;
   link: string;
   logo_url: string;
-}) => api.post('/tools', tool);
+}) => api.post('/tools/', tool);
