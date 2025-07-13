@@ -49,7 +49,7 @@ const MyToolsPage: React.FC = () => {
     const fetchTools = async () => {
       try {
         const [toolsRes, permissionsRes] = await Promise.all([
-          axios.get('/tools'),
+          axios.get('/tools/'),
           axios.get('/tools/permissions/tools')
         ]);
 
