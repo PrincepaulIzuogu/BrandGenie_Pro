@@ -43,7 +43,7 @@ const AddUser: React.FC = () => {
         const [groupRes, projectRes, toolRes] = await Promise.all([
           axios.get(`${BACKEND_URL}/groups`),
           axios.get(`${BACKEND_URL}/projects`),
-          axios.get(`${BACKEND_URL}/tools`)
+          axios.get(`${BACKEND_URL}/tools/`)
         ]);
 
         let fileRes = { data: [] };
