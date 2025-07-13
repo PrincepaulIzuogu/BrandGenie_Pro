@@ -78,7 +78,7 @@ const ToolsPage: React.FC = () => {
 
   const syncAndFetchTools = async () => {
     try {
-      const res = await axios.get(`${BACKEND_URL}/tools`);
+      const res = await axios.get(`${BACKEND_URL}/tools/`);
       const existingTitles = res.data.map((t: any) => t.title);
 
       const newOnes = predefinedTools.filter(
@@ -86,13 +86,13 @@ const ToolsPage: React.FC = () => {
       );
 
       for (const tool of newOnes) {
-        await axios.post(`${BACKEND_URL}/tools`, {
+        await axios.post(`${BACKEND_URL}/tools/`, {
           ...tool,
           logo_url: tool.logo_url,
         });
       }
 
-      const finalTools = await axios.get(`${BACKEND_URL}/tools`);
+      const finalTools = await axios.get(`${BACKEND_URL}/tools/`);
       setTools(finalTools.data);
     } catch (err) {
       console.error('Error syncing tools:', err);
