@@ -103,7 +103,7 @@ const AddUser: React.FC = () => {
     };
 
     try {
-      await axios.post(`${BACKEND_URL}/adduser`, payload);
+      await axios.post(`${BACKEND_URL}/adduser/`, payload);
       toast.success('✅ User added and email sent!');
       navigate('/view-users');
     } catch (error: any) {
