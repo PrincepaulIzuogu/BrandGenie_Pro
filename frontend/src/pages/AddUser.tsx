@@ -77,6 +77,61 @@ const AddUser: React.FC = () => {
       return;
     }
 
+    // Validation checks
+    if (!form.fullName.trim() || !form.email.trim()) {
+      toast.error('❌ Full name and email are required.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!form.durationValue || parseInt(form.durationValue) <= 0) {
+      toast.error('❌ Please enter a valid contract duration.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (selectedGroups.length === 0) {
+      toast.error('❌ You must create and select at least one group.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (selectedProjects.items.length === 0) {
+      toast.error('❌ You must create and select at least one project.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!selectedProjects.durationValue || parseInt(selectedProjects.durationValue) <= 0) {
+      toast.error('❌ Please provide a valid duration for assigned projects.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (selectedTools.items.length === 0) {
+      toast.error('❌ You must select at least one tool.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!selectedTools.durationValue || parseInt(selectedTools.durationValue) <= 0) {
+      toast.error('❌ Please provide a valid duration for assigned tools.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (selectedDocuments.items.length === 0) {
+      toast.error('❌ You must create and select at least one document.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!selectedDocuments.durationValue || parseInt(selectedDocuments.durationValue) <= 0) {
+      toast.error('❌ Please provide a valid duration for assigned documents.');
+      setIsLoading(false);
+      return;
+    }
+
     const payload = {
       fullName: form.fullName,
       email: form.email,
@@ -257,3 +312,4 @@ const AddUser: React.FC = () => {
 };
 
 export default AddUser;
+
